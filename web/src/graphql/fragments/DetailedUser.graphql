@@ -1,0 +1,23 @@
+fragment DetailedUser on User {
+  ...User
+  relatedUsers {
+    ...User
+    showChat
+    unreadCount
+  }
+  followers {
+    ...User
+  }
+  following {
+    ...User
+  }
+  groups {
+    ...Group
+    owner {
+      id
+    }
+    users {
+      ...User
+    }
+  }
+}

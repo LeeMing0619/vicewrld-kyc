@@ -1,0 +1,79 @@
+mutation createAccount($input: CreateAccountInput!) {
+  createAccount(input: $input) {
+    accessToken
+    user {
+      ...CurrentUser
+    }
+  }
+}
+
+mutation changePassword($input: ChangePasswordInput!) {
+  changePassword(input: $input) {
+    ...CurrentUser
+  }
+}
+
+mutation changeUserAvatar($input: ChangeUserAvatarInput!) {
+  changeUserAvatar(input: $input) {
+    ...CurrentUser
+  }
+}
+
+mutation changeUserBanner($input: ChangeUserBannerInput!) {
+  changeUserBanner(input: $input) {
+    ...CurrentUser
+  }
+}
+
+mutation changeUserAvatarWithUrl($input: ChangeUserAvatarWithUrlInput!) {
+  changeUserAvatarWithUrl(input: $input) {
+    ...CurrentUser
+  }
+}
+
+mutation deleteAccount($input: DeleteAccountInput!) {
+  deleteAccount(input: $input)
+}
+
+mutation login($input: LoginInput!) {
+  login(input: $input) {
+    accessToken
+    user {
+      ...CurrentUser
+    }
+  }
+}
+
+mutation changeOnlineStatus($input: ChangeOnlineStatusInput!) {
+  changeOnlineStatus(input: $input) {
+    ...CurrentUser
+  }
+}
+
+mutation changeIsPremium($input: Boolean!) {
+  changeIsPremium(input: $input) {
+    ...CurrentUser
+  }
+}
+
+mutation changeIsCreator($input: Boolean!) {
+  changeIsCreator(input: $input) {
+    ...CurrentUser
+  }
+}
+
+mutation globalBan($input: GlobalBanInput!) {
+  globalBan(input: $input)
+}
+
+mutation updateBio($input: UpdateBioInput!) {
+  updateBio(input: $input)
+}
+
+mutation updateTwitter($input: UpdateTwitterInput!) {
+  updateTwitter(input: $input)
+}
+
+mutation updateInstagram($input: UpdateInstagramInput!) {
+  updateInstagram(input: $input)
+}
