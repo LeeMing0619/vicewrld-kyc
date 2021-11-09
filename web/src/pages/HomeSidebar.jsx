@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Sidebar from '@/components/ui/sidebar/Sidebar'
 import SidebarSortButtons from '@/components/ui/sidebar/SidebarSortButtons'
 import {
@@ -31,7 +32,7 @@ export default function HomeSidebar() {
   const { t } = useTranslation()
   const [currentUser] = useCurrentUser()
   const groups = currentUser?.groups ?? []
-  const dms = currentUser?.relatedUsers?.filter(r => r.showChat) ?? []
+  const dms = currentUser?.relatedUsers ?? []
   const groupsAndDms = groups
     .concat(dms)
     .sort(
@@ -47,6 +48,7 @@ export default function HomeSidebar() {
   const [postsFeed, setPostsFeed] = useStore(s => [s.postsFeed, s.setPostsFeed])
   const { pathname } = useLocation()
   const { push } = useHistory()
+
   return (
     <>
       <Sidebar>
@@ -120,11 +122,11 @@ export default function HomeSidebar() {
 
           <SidebarSortButtons /> */}
 
-          {/* {!!currentUser && (
+          {!!currentUser && (
             <>
               <SidebarLabel plusLabel="Create DM">{t('dm.title')}</SidebarLabel>
 
-              <div className="space-y-0.5">
+              <div className="space-y-0.5">{console.log(currentUser)}
                 {!!groupsAndDms &&
                   groupsAndDms.map(groupOrDm => {
                     if (groupOrDm.__typename === 'Group') {
@@ -139,7 +141,7 @@ export default function HomeSidebar() {
                   })}
               </div>
             </>
-          )} */}
+          )}
         </div>
       </Sidebar>
     </>

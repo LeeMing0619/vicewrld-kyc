@@ -83,7 +83,7 @@ const tab = {
   // Folders: 'Folders'
 }
 
-export default memo(function UserDialog() {
+export default memo(function UserDialog() { console.log("asdfasdf")
   const [currentUser] = useCurrentUser()
 
   const [userId, setUserId, open, setOpen] = useStore(s => [

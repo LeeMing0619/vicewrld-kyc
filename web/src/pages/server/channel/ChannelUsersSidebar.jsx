@@ -45,32 +45,32 @@ export default function ChannelUsersSidebar({ server, serverUsers }) {
   const showUsers = useStore(s => s.showUsers)
 
   return (
-    <></>
-    // <Sidebar right show={showUsers}>
-    //   <Virtuoso
-    //     className="scrollbar-dark"
-    //     ref={virtusoRef}
-    //     style={{
-    //       height: `100%`,
-    //       width: `100%`
-    //     }}
-    //     data={items}
-    //     itemContent={(index, user) => (
-    //       <div className="px-1.5 pb-0.5">
-    //         {typeof user === 'string' ? (
-    //           <SidebarLabel>{user}</SidebarLabel>
-    //         ) : (
-    //           <div className={`${user.user.isOnline ? '' : 'opacity-35'}`}>
-    //             <SidebarUser
-    //               user={user.user}
-    //               role={user.role}
-    //               server={server}
-    //             />
-    //           </div>
-    //         )}
-    //       </div>
-    //     )}
-    //   />
-    // </Sidebar>
+    
+    <Sidebar right show={showUsers}>
+      <Virtuoso
+        className="scrollbar-dark"
+        ref={virtusoRef}
+        style={{
+          height: `100%`,
+          width: `100%`
+        }}
+        data={items}
+        itemContent={(index, user) => (
+          <div className="px-1.5 pb-0.5">
+            {typeof user === 'string' ? (
+              <SidebarLabel>{user}</SidebarLabel>
+            ) : (
+              <div className={`${user.user.isOnline ? '' : 'opacity-35'}`}>
+                <SidebarUser
+                  user={user.user}
+                  role={user.role}
+                  server={server}
+                />
+              </div>
+            )}
+          </div>
+        )}
+      />
+    </Sidebar>
   )
 }

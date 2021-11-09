@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react'
-import { useServerQuery, useServerUsersLazyQuery } from '@/graphql/hooks'
+import { useServerQuery, useServerUsersQuery, useServerUsersLazyQuery } from '@/graphql/hooks'
 
 export const ServerContext = createContext({
   server: null,
@@ -19,7 +19,7 @@ export default React.memo(function ServerProvider({ children, name }) {
     fetchPolicy: 'network-only'
   })
 
-  const { data: usersData } = useServerUsersLazyQuery({
+  const { data:usersData } = useServerUsersQuery({
     variables: { serverId: server?.id },
     skip: !server,
     fetchPolicy: 'network-only'

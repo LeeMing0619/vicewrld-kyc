@@ -15,9 +15,8 @@ import { useCurrentUser } from '@/hooks/graphql/useCurrentUser'
 
 const PREPEND_OFFSET = 10 ** 7
 
-export default function Messages({ channel, server, user, group, users }) {
-  const virtuoso = useRef(null)
-
+export default function Messages({ channel, server, user, group, users, received_message }) {
+  const virtuoso = useRef(null)  
   const [messages, fetching, fetchMore, hasMore] = useMessages({
     channelId: channel?.id,
     userId: user?.id,
@@ -40,7 +39,8 @@ export default function Messages({ channel, server, user, group, users }) {
     (messageList, virtuosoIndex) => {
       const messageIndex = virtuosoIndex + numItemsPrepended - PREPEND_OFFSET
 
-      const message = messageList[messageIndex]
+      const message = messageList[messageIndex]      
+        
       const prevMessage =
         messageIndex > 0 ? messageList[messageIndex - 1] : null
 
@@ -144,6 +144,7 @@ export default function Messages({ channel, server, user, group, users }) {
           user={user}
           group={group}
           users={users}
+          received_message={received_message}
         />
       )}
     </div>

@@ -1,6 +1,23 @@
+import { useState } from 'react';
 import Popup from '@/components/ui/Popup'
 import UserAvatar from '@/components/user/UserAvatar'
 import { useStore } from '@/hooks/useStore'
+import ctl from '@netlify/classnames-template-literals'
+import { useHistory } from 'react-router-dom'
+
+
+const titleClass = ctl(`
+  px-4
+  h-10
+  placeholder-tertiary
+  dark:bg-gray-650
+  bg-gray-100
+  rounded
+  text-sm
+  text-primary
+  w-full
+  focus:outline-none
+`)
 
 export default function UserPopup({
   user,
@@ -8,9 +25,24 @@ export default function UserPopup({
   children,
   placement = 'right'
 }) {
+  const [message, setMessage] = useState('');
+  const history = useHistory();
   const setDialogUserId = useStore(s => s.setDialogUserId)
+  const onChangeMessage = (e) => {
+    setMessage(e.target.value);
+  }
+
+  const onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      // navigate to DM page
+      history.push({
+        pathname: '/dm/@' + user.username,
+        state: { message }
+      })
+    }
+  }
   if (!user) return children
-  return <>{children}</>
+  // return <>{children}</>
   return (
     <>
       <Popup
@@ -24,12 +56,12 @@ export default function UserPopup({
                   user={user}
                   size={20}
                   showOnline
-                  className="dark:bg-gray-700 select-none"
-                  // className="dark:bg-gray-700 cursor-pointer select-none"
+                  // className="dark:bg-gray-700 select-none"
+                  className="dark:bg-gray-700 cursor-pointer select-none"
                   dotClassName="ring-5 w-4 h-4 dark:ring-gray-850 ring-white"
                 />
 
-                {/* <div
+                <div
                   onClick={() => {
                     close()
                     setDialogUserId(user.id)
@@ -37,7 +69,7 @@ export default function UserPopup({
                   className="cursor-pointer bg-black bg-opacity-50 transition rounded-full absolute whitespace-nowrap inset-0 flex items-center justify-center text-9 uppercase tracking-widest font-semibold opacity-0 group-hover:opacity-100"
                 >
                   View Profile
-                </div> */}
+                </div>
               </div>
 
               <div className="mt-3 text-base">
@@ -66,6 +98,17 @@ export default function UserPopup({
                       style={{ backgroundColor: role.color }}
                     />
                     {role.name}
+                  </div>
+                  <div className="text-11 font-semibold uppercase tracking-widest text-secondary pt-8 pb-2">
+                    <input
+                      autoComplete="off"
+                      maxLength={300}
+                      className={titleClass}
+                      placeholder={'Messaage @' + user.username}
+                      id="messaage"
+                      onChange={onChangeMessage}
+                      onKeyPress={onKeyPress}
+                    />
                   </div>
                 </div>
               )}

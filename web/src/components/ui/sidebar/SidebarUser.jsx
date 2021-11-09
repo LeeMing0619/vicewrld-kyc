@@ -12,27 +12,27 @@ export default function SidebarUser({ user, role, server }) {
       }}
       data={{ type: ContextMenuType.User, user, server, role }}
     >
-      {/* <UserPopup user={user} role={role} placement="left"> */}
-      <SidebarItem
-        small
-        style={{
-          cursor: 'default'
-        }}
-      >
-        <UserAvatar
-          user={user}
-          size={6}
-          showOnline
-          dotClassName="w-2 h-2 ring-2 dark:ring-gray-800 ring-gray-50"
-        />
-        <div
-          className="ml-3 font-medium text-tertiary"
-          style={{ color: role?.color }}
+      <UserPopup user={user} role={role} placement="left">
+        <SidebarItem
+          small
+          style={{
+            cursor: 'default'
+          }}
         >
-          {user.username}
-        </div>
-      </SidebarItem>
-      {/* </UserPopup> */}
+          <UserAvatar
+            user={user}
+            size={6}
+            showOnline
+            dotClassName="w-2 h-2 ring-2 dark:ring-gray-800 ring-gray-50"
+          />
+          <div
+            className="ml-3 font-medium text-tertiary"
+            style={{ color: role?.color }}
+          >
+            {user.username}
+          </div>
+        </SidebarItem>
+      </UserPopup>
     </ContextMenuTrigger>
   )
 }

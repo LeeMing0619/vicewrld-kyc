@@ -5,14 +5,16 @@ import {
   IconDark,
   IconDownload,
   IconLight,
-  IconSettings
+  IconSettings,
+  IconSearch,
+  IconFolder
 } from '@/components/ui/icons/Icons'
 import Tippy from '@tippyjs/react'
 import { useEffect, useState } from 'react'
 import UserSettingsDialog from '@/components/user/UserSettingsDialog'
 import { version } from '../../package.json'
 import { useStore } from '@/hooks/useStore'
-// import { OnlineStatus, useChangeOnlineStatusMutation } from '@/graphql/hooks'
+import { OnlineStatus, useChangeOnlineStatusMutation } from '@/graphql/hooks'
 import { Link } from 'react-router-dom'
 import { getDownloadLink } from '@/hooks/getDownloadLink'
 import { useLoginDialog } from '@/hooks/useLoginDialog'
@@ -39,21 +41,21 @@ export default function BottomBar() {
     }
   }, [])
 
-  // const [changeOnlineStatus] = useChangeOnlineStatusMutation()
+  const [changeOnlineStatus] = useChangeOnlineStatusMutation()
 
-  // Update online status every 15 seconds
-  // useEffect(() => {
-  //   if (currentUser) {
-  //     const id = setInterval(() => {
-  //       changeOnlineStatus({
-  //         variables: {
-  //           input: { onlineStatus: OnlineStatus.Online }
-  //         }
-  //       })
-  //     }, 15000)
-  //     return () => clearInterval(id)
-  //   }
-  // }, [currentUser])
+  //Update online status every 15 seconds
+  useEffect(() => {
+    if (currentUser) {
+      const id = setInterval(() => {
+        changeOnlineStatus({
+          variables: {
+            input: { onlineStatus: OnlineStatus.Online }
+          }
+        })
+      }, 15000)
+      return () => clearInterval(id)
+    }
+  }, [currentUser])
 
   const { toggle: toggleDark, value: isDark } = useDarkMode()
 
@@ -81,11 +83,11 @@ export default function BottomBar() {
       <div className="flex items-center shadow-md px-3 bottom-0 h-5.5 dark:bg-gray-700 z-1000 bg-white">
         {currentUser ? (
           <>
-            {/* <UserAvatar size={4.5} className="mr-2" user={currentUser} />
+            <UserAvatar size={4.5} className="mr-2" user={currentUser} />
             <div className="text-primary text-13 font-medium cursor-pointer">
               {currentUser.username}
             </div>
-            <div className="w-2 h-2 rounded-full bg-green-500 ml-2" /> */}
+            <div className="w-2 h-2 rounded-full bg-green-500 ml-2" />
           </>
         ) : (
           <div className="flex items-center text-primary text-13 font-medium">
@@ -112,7 +114,7 @@ export default function BottomBar() {
         )}
 
         <div className="ml-auto flex items-center space-x-4 text-primary">
-          {/* {os === 'Windows' && !window.electron && (
+          {os === 'Windows' && !window.electron && (
             <Tippy content="Download Comet for Desktop">
               <a
                 className="block"
@@ -136,9 +138,9 @@ export default function BottomBar() {
                 <IconDark className="w-5 h-5" />
               )}
             </button>
-          </Tippy> */}
+          </Tippy>
 
-          {/* <Tippy
+          <Tippy
             content={`${
               window.electron && updateAvailable
                 ? 'Update available'
@@ -171,9 +173,9 @@ export default function BottomBar() {
                 </div>
               )}
             </div>
-          </Tippy> */}
+          </Tippy>
 
-          {/*<Tippy content="Search" offset={offset}>
+          <Tippy content="Search" offset={offset}>
             <div>
               <IconSearch className="w-4.5 h-4.5 cursor-pointer" />
             </div>
@@ -183,7 +185,7 @@ export default function BottomBar() {
             <div>
               <IconFolder className="w-4.5 h-4.5 cursor-pointer" />
             </div>
-          </Tippy>*/}
+          </Tippy>
 
           {!!currentUser &&
             (width > 600 ? (

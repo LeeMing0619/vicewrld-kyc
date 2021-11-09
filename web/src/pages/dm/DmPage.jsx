@@ -5,6 +5,7 @@ import Page from '@/components/ui/page/Page'
 import { useOpenDmMutation, useUserQuery } from '@/graphql/hooks'
 import { useCurrentUser } from '@/hooks/graphql/useCurrentUser'
 import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom';
 
 export default function DmPage({ username }) {
   const { data: userData } = useUserQuery({
@@ -14,6 +15,8 @@ export default function DmPage({ username }) {
   })
   const [openDm] = useOpenDmMutation()
   const user = userData?.user
+  const location = useLocation();
+  
   useEffect(() => {
     if (!user) return
     if (!user.showChat) {
@@ -22,9 +25,10 @@ export default function DmPage({ username }) {
   }, [user?.id])
   useSetHomePage(`dm/@${username}`)
   const [currentUser] = useCurrentUser()
+  
   return (
     <Page header={<DmHeader user={user} />}>
-      {!!user && <Messages user={user} users={[user, currentUser]} />}
+      {!!user && <Messages user={user} users={[user, currentUser]} received_message={location.state?.message} />}
     </Page>
   )
 }

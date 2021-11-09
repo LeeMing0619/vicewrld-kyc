@@ -39,6 +39,12 @@ export default function Routes() {
 
   const username = matchedProfile?.params?.username
 
+  const matchedMessageID = matchPath(pathname, {
+    path: '/dm/:username'
+  })
+
+  const dm_username = matchedMessageID?.params?.username.split("@")[1]
+
   return (
     <Switch>
       <Route path="/">
@@ -88,6 +94,9 @@ export default function Routes() {
                     </Route>
                     <Route path="/inbox">
                       <InboxPage />
+                    </Route>
+                    <Route path={`/dm/:username(${usernameRegex})`}>                      
+                      <DmPage username={dm_username} />
                     </Route>
                   </Route>
                 </div>

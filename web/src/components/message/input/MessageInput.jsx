@@ -31,7 +31,7 @@ function useForceUpdate() {
   return () => setValue(value => value + 1)
 }
 
-export default function MessageInput({ channel, server, group, user, users }) {
+export default function MessageInput({ channel, server, group, user, users, received_message }) {    
   const variables = {
     channelId: channel?.id,
     groupId: group?.id,
@@ -218,6 +218,7 @@ export default function MessageInput({ channel, server, group, user, users }) {
     variables?.userId
   ])
 
+  
   // const editor = useEditor(editorOptions)
 
   const [startTyping, typingNames] = useTyping({
@@ -350,6 +351,22 @@ export default function MessageInput({ channel, server, group, user, users }) {
     }
   }, [currentFileIndex])
 
+  useEffect (() => {
+    if (received_message !== '' && received_message !== null && received_message !== undefined) {
+      let text = received_message
+      const pRegex = /^<p>|<\/p>$/gi
+      const brRegex =
+        /^\s*(?:<br\s*\/?\s*>)+|(?:<br\s*\/?\s*>)+\s*$/gi
+      text = text.replace(pRegex, '')
+      text = text.replace(brRegex, '')         
+      createMessage({
+        variables: { input: { text, ...variables } }
+      })
+      received_message = '';
+      editor.commands.clearContent()
+      text = ""
+    }
+  }, [])
   const cancelAll = useCallback(() => {
     setFiles(null)
     setCurrentFile(null)
