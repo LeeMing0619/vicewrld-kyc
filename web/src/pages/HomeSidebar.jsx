@@ -126,7 +126,7 @@ export default function HomeSidebar() {
             <>
               <SidebarLabel plusLabel="Create DM">{t('dm.title')}</SidebarLabel>
 
-              <div className="space-y-0.5">{console.log(currentUser)}
+              <div className="space-y-0.5">
                 {!!groupsAndDms &&
                   groupsAndDms.map(groupOrDm => {
                     if (groupOrDm.__typename === 'Group') {

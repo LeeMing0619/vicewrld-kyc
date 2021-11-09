@@ -124,9 +124,9 @@ export default memo(function Message({
 
         <ContextMenuTrigger
           data={{ type: ContextMenuType.Message, message, server }}
-        >
+        >          
           <div
-            className={`flex py-1 pl-4 pr-18 dark:hover:bg-gray-775 group relative`}
+            className={`flex py-1 pl-4 pr-18 dark:hover:bg-gray-775 group relative `}
           >
             {isMentioned && (
               <div className="bg-gray-500 group-hover:bg-opacity-30 bg-opacity-10 absolute inset-0 pointer-events-none border-l-2 border-gray-500" />

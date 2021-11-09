@@ -362,8 +362,7 @@ export default function MessageInput({ channel, server, group, user, users, rece
       createMessage({
         variables: { input: { text, ...variables } }
       })
-      received_message = '';
-      editor.commands.clearContent()
+      received_message = '';      
       text = ""
     }
   }, [])

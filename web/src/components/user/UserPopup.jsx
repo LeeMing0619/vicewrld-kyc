@@ -4,7 +4,7 @@ import UserAvatar from '@/components/user/UserAvatar'
 import { useStore } from '@/hooks/useStore'
 import ctl from '@netlify/classnames-template-literals'
 import { useHistory } from 'react-router-dom'
-
+import { RelationshipStatus, useCreateFriendRequestMutation } from '@/graphql/hooks';
 
 const titleClass = ctl(`
   px-4
@@ -25,6 +25,7 @@ export default function UserPopup({
   children,
   placement = 'right'
 }) {
+  const [createFriendRequest] = useCreateFriendRequestMutation()
   const [message, setMessage] = useState('');
   const history = useHistory();
   const setDialogUserId = useStore(s => s.setDialogUserId)
@@ -34,6 +35,17 @@ export default function UserPopup({
 
   const onKeyPress = (e) => {
     if (e.key === 'Enter') {
+      // following
+      let userId = user.id;
+      createFriendRequest({
+        variables: { input: { userId } },
+        optimisticResponse: {
+          createFriendRequest: {
+            ...user,
+            relationshipStatus: RelationshipStatus.Following
+          }
+        }
+      })
       // navigate to DM page
       history.push({
         pathname: '/dm/@' + user.username,
