@@ -2,6 +2,7 @@ import { useCurrentUser } from '@/hooks/graphql/useCurrentUser'
 import {
   matchPath,
   Route,
+  HashRouter,
   Switch,
   useLocation,
   useParams
@@ -42,9 +43,9 @@ export default function Routes() {
   const matchedMessageID = matchPath(pathname, {
     path: '/dm/:username'
   })
-
+  
   const dm_username = matchedMessageID?.params?.username.split("@")[1]
-
+  
   return (
     <Switch>
       <Route path="/">
@@ -63,7 +64,8 @@ export default function Routes() {
                 `/:server(${serverRegex})`,
                 `/profile/:username`,
                 `/:server(${serverRegex})/post/:postId`,
-                `/:server(${serverRegex})/post/:postId/:slug`,
+                `/:server(${serverRegex})/post/:postId/:slug`,                
+                // `/:server(${serverRegex})/channel/:channelName`,
                 '/explore'
               ]}
               exact
@@ -79,7 +81,7 @@ export default function Routes() {
                   </Route>
                   <Route path={`/:server(${serverRegex})`}>
                     <ServerRoutes />
-                  </Route>
+                  </Route>                                  
                   <Route path={`/profile/:username`}>
                     <ProfileSidebar />
                     <CreatorProfile username={username} />
@@ -132,6 +134,7 @@ function ServerPages() {
   const matchedPost = matchPath(pathname, {
     path: '/:server/post/:postId'
   })
+
   const postId = matchedPost?.params?.postId
 
   if (!server && !loading) {
@@ -141,11 +144,16 @@ function ServerPages() {
   return (
     <>
       <ServerSidebar />
-      <Route
-        path={`/:server(${serverRegex})`}
-        exact
-        render={() => <ServerPostsPage />}
-      />
+      {!hash &&
+        <Route
+          path={`/:server(${serverRegex})`}
+          exact
+          render={() => <ServerPostsPage />}
+        />    
+      }
+      {hash &&    
+        <ChannelPage channelName={channelName}/>    
+      }
       <Route
         path={[
           `/:server(${serverRegex})/post/:postId`,
@@ -153,7 +161,7 @@ function ServerPages() {
         ]}
       >
         <PostPage postId={postId} />
-      </Route>
+      </Route>      
     </>
   )
 }

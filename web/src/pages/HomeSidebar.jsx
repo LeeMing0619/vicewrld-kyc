@@ -32,7 +32,8 @@ export default function HomeSidebar() {
   const { t } = useTranslation()
   const [currentUser] = useCurrentUser()
   const groups = currentUser?.groups ?? []
-  const dms = currentUser?.relatedUsers ?? []
+  const dms = currentUser?.relatedUsers?.filter(r => r.showChat) ?? []
+  
   const groupsAndDms = groups
     .concat(dms)
     .sort(
@@ -148,7 +149,7 @@ export default function HomeSidebar() {
   )
 }
 
-function DirectMessage({ user }) {
+function DirectMessage({ user }) { 
   const { t } = useTranslation()
 
   const [closeDm] = useCloseDmMutation()
@@ -178,7 +179,7 @@ function DirectMessage({ user }) {
   })
   const isActive = isOver && canDrop
 
-  return (
+  return ( 
     <div>
       <ContextMenuTrigger
         data={{ type: ContextMenuType.User, user, isDm: true }}
@@ -205,8 +206,8 @@ function DirectMessage({ user }) {
 
           <IconX
             onClick={e => {
-              e.stopPropagation()
-              e.preventDefault()
+              // e.stopPropagation()
+              // e.preventDefault()
               closeDm({ variables: { input: { userId: user.id } } })
               if (pathname === `/dm/@${user.username}`) push('/')
             }}

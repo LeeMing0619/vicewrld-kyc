@@ -16,7 +16,7 @@ export default function DmPage({ username }) {
   const [openDm] = useOpenDmMutation()
   const user = userData?.user
   const location = useLocation();
-  
+
   useEffect(() => {
     if (!user) return
     if (!user.showChat) {

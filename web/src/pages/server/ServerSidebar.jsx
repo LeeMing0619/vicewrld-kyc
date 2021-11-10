@@ -151,8 +151,8 @@ export default function ServerSidebar() {
 
           <SidebarSortButtons />
 
-          {/* <CreateChannel server={server} /> */}
-          {/* 
+          <CreateChannel server={server} />
+          
           <div className="space-y-0.5">
             {server.channels
               .filter(channel =>
@@ -167,7 +167,7 @@ export default function ServerSidebar() {
                   server={server}
                 />
               ))}
-          </div> */}
+          </div>
 
           {canManageServer && (
             <>
@@ -177,10 +177,10 @@ export default function ServerSidebar() {
                   <IconSettings className="mr-3 w-5 h-5" />
                   Edit Room
                 </SidebarItem>
-                {/* <SidebarItem onClick={() => setRolesOpen(true)}>
+                <SidebarItem onClick={() => setRolesOpen(true)}>
                   <IconShield className="mr-3 w-5 h-5" />
                   Manage Roles
-                </SidebarItem> */}
+                </SidebarItem>
               </div>
             </>
           )}
