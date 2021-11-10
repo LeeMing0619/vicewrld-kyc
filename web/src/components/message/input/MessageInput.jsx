@@ -373,11 +373,11 @@ export default function MessageInput({ channel, server, group, user, users, rece
   }, [setFiles, setCurrentFile, setCurrentFileIndex])
 
   return (
-    <>
+    <>    
       {!!currentUser && (
         <>
-          {/* <MessageDropZone placeholder={placeholder} setFiles={setFiles} /> */}
-          {/* 
+          <MessageDropZone placeholder={placeholder} setFiles={setFiles} />
+          
           <MessageUploadDialog
             createMessage={createMessage}
             variables={variables}
@@ -386,7 +386,7 @@ export default function MessageInput({ channel, server, group, user, users, rece
             placeholder={placeholder}
             multiple={files && files.length > 1}
             cancelAll={cancelAll}
-          /> */}
+          />
         </>
       )}
 

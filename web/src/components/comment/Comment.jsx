@@ -84,13 +84,13 @@ export default function Comment({
             }`}
           >
             <div className="flex items-end pb-1.5">
-              {/* <ContextMenuTrigger
+              <ContextMenuTrigger
                 data={{ type: ContextMenuType.User, user: comment.author }}
               >
                 <UserPopup
                   user={comment.author}
                   role={comment.serverUser?.role}
-                > */}
+                >
               <div
                 className={`text-sm font-medium cursor-pointer hover:underline leading-none ${
                   comment.serverUser?.role?.color ? '' : 'text-primary'
@@ -101,8 +101,8 @@ export default function Comment({
                   <span className="text-mid">[deleted]</span>
                 )}
               </div>
-              {/* </UserPopup>
-              </ContextMenuTrigger> */}
+              </UserPopup>
+              </ContextMenuTrigger>
 
               <div className="text-11 text-mid font-medium pl-2 leading-none">
                 {formatDistanceToNowStrict(new Date(comment.createdAt))}

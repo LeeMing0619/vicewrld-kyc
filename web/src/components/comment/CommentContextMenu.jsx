@@ -29,8 +29,8 @@ export default function CommentContextMenu({ comment, post, ContextMenuItem }) {
   return (
     <>
       <ContextMenuSection>
-        {/* {isAuthor && <ContextMenuItem label={t('comment.context.edit')} />} */}
-        {/*{canManageComments && (
+        {isAuthor && <ContextMenuItem label={t('comment.context.edit')} />}
+        {canManageComments && (
           <ContextMenuItem
             label={
               comment.isPinned
@@ -39,7 +39,7 @@ export default function CommentContextMenu({ comment, post, ContextMenuItem }) {
             }
             onClick={() => togglePin()}
           />
-        )}*/}
+        )}
         {!!currentUser && !comment.isDeleted && (
           <ContextMenuItem
             onClick={() => setReplyingCommentId(comment?.id)}
@@ -47,12 +47,12 @@ export default function CommentContextMenu({ comment, post, ContextMenuItem }) {
           />
         )}
 
-        {/*<ContextMenuItem
+        <ContextMenuItem
           onClick={() => {
             copyToClipboard(`${comment.id}`)
           }}
           label={t('comment.context.copyLink')}
-        />*/}
+        />
         {canDelete && (
           <ContextMenuItem
             label={t('comment.context.delete')}

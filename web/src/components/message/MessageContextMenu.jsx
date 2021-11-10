@@ -9,6 +9,7 @@ import {
   MessageType,
   ServerPermission,
   useDeleteMessageMutation,
+  useUpdateMessageMutation,
   usePinMessageMutation,
   useUnpinMessageMutation
 } from '@/graphql/hooks'
@@ -34,6 +35,7 @@ export default function MessageContextMenu({
   })
   const copyToClipboard = useCopyToClipboard()[1]
   const [deleteMessage] = useDeleteMessageMutation()
+  const [updateMessage] = useUpdateMessageMutation()
   const [pinMessage] = usePinMessageMutation()
   const [unpinMessage] = useUnpinMessageMutation()
   const togglePin = useToggleMessagePin(message)
@@ -49,8 +51,22 @@ export default function MessageContextMenu({
   return (
     <>
       <ContextMenuSection>
-        {/*{canEdit && <ContextMenuItem label={t('message.context.edit')} />}*/}
-        {/*{canPin && (
+        {/* {canEdit && (
+          <ContextMenuItem 
+            label={t('message.context.edit')} 
+            onClick={() => {
+              updateMessage({
+                variables: {
+                  input: {
+                    messageId: message.id
+                  }
+                }
+              })
+              toast.error(t('Message updated!'))
+            }}
+          />
+        )} */}
+        {/* {canPin && (
           <ContextMenuItem
             label={
               message.isPinned
@@ -59,13 +75,13 @@ export default function MessageContextMenu({
             }
             onClick={() => togglePin()}
           />
-        )}*/}
-        {/*<ContextMenuItem
+        )} */}
+        {/* <ContextMenuItem
           onClick={() => {
             copyToClipboard(`${message.relativeUrl}`)
           }}
           label={t('message.context.copyLink')}
-        />*/}
+        /> */}
         {canDelete && (
           <ContextMenuItem
             label={t('message.context.delete')}
