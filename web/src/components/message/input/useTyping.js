@@ -21,7 +21,11 @@ export const useTyping = ({ channel, group, user, users }) => {
   }
   
   useTypingUpdatedSubscription({
-    variables,
+    variables :{
+      userId: user?.id,
+      groupId: group?.id,
+      channelId: channel?.id
+    },
     skip: !channel && !group && !user,
     onSubscriptionData({
       subscriptionData: {

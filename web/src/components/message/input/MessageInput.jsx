@@ -79,7 +79,7 @@ export default function MessageInput({ channel, server, group, user, users, rece
   }, [currentUser, channel, group, user, canUseChannel, isBlocked, isBlocking])
 
   const editorOptions = {
-    autofocus: true,
+    autofocus: false,
     extensions: [
       StarterKit.configure({
         horizontalRule: false,
@@ -316,7 +316,7 @@ export default function MessageInput({ channel, server, group, user, users, rece
       } else {
         setLastKeypressAt(currentTime)
       }
-      editor?.commands.focus()
+      // editor?.commands.focus()
     },
     [editor]
   )

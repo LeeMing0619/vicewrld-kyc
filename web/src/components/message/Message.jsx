@@ -56,7 +56,7 @@ export default memo(function Message({
       (!prevMessage.text || prevMessage.author.id !== message.author.id)) ||
     day > prevDay
 
-  if (message.type === MessageType.Initial) {
+  if (message.type === MessageType.Initial || message.type === MessageType.FriendRequestReceived) {
     return <MessagesStart channel={channel} group={group} user={user} />
   }
 

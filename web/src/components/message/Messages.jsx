@@ -39,10 +39,19 @@ export default function Messages({ channel, server, user, group, users, received
 
   useEffect(() => {
     if (data?.messageChanged?.updated) {
-      //console.log('New data: ', data?.messageChanged?.updated);
-      if (!messages.find(m => m.id === data?.messageChanged?.updated.id)) {
+      console.log('New data: ', data);
+      if (!messages.find(m => m.id === data?.messageChanged?.updated.id) && messages.find(m => m.author.id === data?.messageChanged?.updated?.author?.id)) {
         setMessages(prev => {
           return [...prev, data?.messageChanged?.updated]
+        });
+      }
+    } else if (data?.messageChanged?.deleted) {
+      // console.log('deleted data: ', data?.messageChanged?.deleted);
+      if (messages.find(m => m.id === data?.messageChanged?.deleted.id)) {
+        setMessages(prev => {
+          // console.log(prev)
+          const tempData = [...prev];
+          return tempData.filter(msg => msg.id !== data?.messageChanged?.deleted.id);
         });
       }
     }
