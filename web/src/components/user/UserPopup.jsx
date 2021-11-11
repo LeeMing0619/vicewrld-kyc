@@ -5,6 +5,7 @@ import { useStore } from '@/hooks/useStore'
 import ctl from '@netlify/classnames-template-literals'
 import { useHistory } from 'react-router-dom'
 import { RelationshipStatus, useCreateFriendRequestMutation } from '@/graphql/hooks';
+import { useCurrentUser } from '@/hooks/graphql/useCurrentUser'
 
 const titleClass = ctl(`
   px-4
@@ -28,6 +29,7 @@ export default function UserPopup({
   const [createFriendRequest] = useCreateFriendRequestMutation()
   const [message, setMessage] = useState('');
   const history = useHistory();
+  const [currentUser] = useCurrentUser()
   const setDialogUserId = useStore(s => s.setDialogUserId)
   const onChangeMessage = (e) => {
     setMessage(e.target.value);
@@ -35,17 +37,19 @@ export default function UserPopup({
 
   const onKeyPress = (e) => {
     if (e.key === 'Enter') {
-      // following
-      let userId = user.id;
-      createFriendRequest({
-        variables: { input: { userId } },
-        optimisticResponse: {
-          createFriendRequest: {
-            ...user,
-            relationshipStatus: RelationshipStatus.Following
+      if (user?.relationshipStatus !== RelationshipStatus.FollowedBy && user?.relationshipStatus !== RelationshipStatus.Following && user?.relationshipStatus !== RelationshipStatus.MutualFollow) {
+        // following
+        let userId = user.id;
+        createFriendRequest({
+          variables: { input: { userId } },
+          optimisticResponse: {
+            createFriendRequest: {
+              ...user,
+              relationshipStatus: RelationshipStatus.Following
+            }
           }
-        }
-      })
+        })
+      }
       // navigate to DM page
       history.push({
         pathname: '/dm/@' + user.username,
@@ -117,9 +121,10 @@ export default function UserPopup({
                       maxLength={300}
                       className={titleClass}
                       placeholder={'Messaage @' + user.username}
-                      id="messaage"
+                      id="dmMessage"
                       onChange={onChangeMessage}
                       onKeyPress={onKeyPress}
+                      style={{display: currentUser?.id === user.id ? 'none':''}}
                     />
                   </div>
                 </div>

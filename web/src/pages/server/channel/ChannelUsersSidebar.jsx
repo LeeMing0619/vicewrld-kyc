@@ -22,6 +22,7 @@ export default function ChannelUsersSidebar({ server, serverUsers }) {
       temp.push(`${role.name} — ${roleUsers.length}`)
       temp.push(...roleUsers)
     }
+
     const onlineUsers = serverUsers.filter(
       serverUser => serverUser.user.isOnline
     )
