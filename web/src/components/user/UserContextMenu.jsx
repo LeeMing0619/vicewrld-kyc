@@ -51,12 +51,12 @@ export default function UserContextMenu({
   return (
     <>
       <ContextMenuSection>
-        {/* <ContextMenuItem
+        <ContextMenuItem
           label={t('user.context.viewProfile')}
           onClick={() => {
             setDialogUserId(user.id)
           }}
-        /> */}
+        />
         {isDm && (
           <>
             {!!user.unreadCount && (
@@ -77,7 +77,7 @@ export default function UserContextMenu({
           </>
         )}
 
-        {/* {!!currentUser && user.id !== currentUser.id ? (
+        {!!currentUser && user.id !== currentUser.id ? (
           <>
             {!isDm && (
               <ContextMenuItem
@@ -88,7 +88,7 @@ export default function UserContextMenu({
           </>
         ) : (
           <></>
-        )} */}
+        )}
         {!!server && canManageUsers && (
           <>
             {/* <ContextMenuItem label="Set Role">

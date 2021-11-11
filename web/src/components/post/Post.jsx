@@ -86,7 +86,7 @@ export default memo(function Post({
           }
         }}
       >
-        {/*<div className="absolute top-3 right-3 flex items-center">
+        <div className="absolute top-3 right-3 flex items-center">
           {post.linkMetadata?.logo && (
             <div
               className="h-6 w-6 rounded-full transform transition opacity-50 group-hover:opacity-100 group-hover:scale-105 group-hover:shadow-md dark:bg-gray-725 bg-contain bg-center"
@@ -103,7 +103,7 @@ export default memo(function Post({
               #{index + 1}
             </div>
           )}
-        </div>*/}
+        </div>
 
         <div className="flex flex-col items-center pr-2">
           <button

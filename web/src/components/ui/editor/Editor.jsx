@@ -245,9 +245,9 @@ function MenuBar({ editor }) {
           active={editor.isActive('codeBlock')}
         />
       </FormatGroup>
-      {/* <FormatGroup>
+      <FormatGroup>
         <FormatButton label="Emoji" icon={IconFormatEmoji} />
-      </FormatGroup> */}
+      </FormatGroup>
     </div>
   )
 }
