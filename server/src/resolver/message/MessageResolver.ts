@@ -49,7 +49,7 @@ export class MessageResolver {
     @Ctx() ctx: Context,
     @Args()
     args: MessagesArgs
-  ): Promise<MessagesResponse> {
+  ): Promise<MessagesResponse> {console.log("----------------------------------------------xxxxxxx")
     return messages(ctx, args)
   }
 
@@ -63,7 +63,7 @@ export class MessageResolver {
     notifyMessageChanged: Publisher<ChangePayload>,
     @PubSub(SubscriptionTopic.TypingUpdated)
     notifyTypingUpdated: Publisher<TypingPayload>
-  ): Promise<Message> {
+  ): Promise<Message> {console.log("----------------------------------------------create")
     return createMessage(ctx, input, notifyMessageChanged, notifyTypingUpdated)
   }
 
@@ -74,7 +74,7 @@ export class MessageResolver {
     @Arg('input') input: UpdateMessageInput,
     @PubSub(SubscriptionTopic.MessageChanged)
     notifyMessageChanged: Publisher<ChangePayload>
-  ): Promise<Message> {
+  ): Promise<Message> { console.log("----------------------------------------------update")
     return updateMessage(ctx, input, notifyMessageChanged)
   }
 

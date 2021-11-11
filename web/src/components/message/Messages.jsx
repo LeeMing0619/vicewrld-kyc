@@ -12,17 +12,44 @@ import {
   useReadGroupMutation
 } from '@/graphql/hooks'
 import { useCurrentUser } from '@/hooks/graphql/useCurrentUser'
+import { useSubscription } from '@apollo/client'
+import { MessageChangedDocument } from '@/graphql/hooks'
 
 const PREPEND_OFFSET = 10 ** 7
 
-export default function Messages({ channel, server, user, group, users, received_message }) {
+export default function Messages({ channel, server, user, group, users, received_message }) {  
   const virtuoso = useRef(null)  
-  const [messages, fetching, fetchMore, hasMore] = useMessages({
+  const [messages, setMessages] = useState([]);
+  const [tempMessages, fetching, fetchMore, hasMore] = useMessages({
     channelId: channel?.id,
     userId: user?.id,
     group: group?.id
   })
 
+  
+  const { data, error: subscriptionError } = useSubscription(MessageChangedDocument);  
+  
+  useEffect(() => {
+    if (tempMessages) {
+      //console.log('Temp Messages: ', tempMessages);
+      setMessages(tempMessages);  
+    }
+    
+  }, [tempMessages]);
+
+  useEffect(() => {
+    if (data?.messageChanged?.updated) {
+      //console.log('New data: ', data?.messageChanged?.updated);
+      if (!messages.find(m => m.id === data?.messageChanged?.updated.id)) {
+        setMessages(prev => {
+          return [...prev, data?.messageChanged?.updated]
+        });
+      }
+    }
+    // setMessages(prev => ([...prev, data]));
+  }, [data]);
+  
+  
   const [length, setLength] = useState(messages?.length || 0)
   useEffect(() => {
     setLength(messages?.length || 0)
@@ -36,11 +63,10 @@ export default function Messages({ channel, server, user, group, users, received
   const shouldForceScrollToBottom = useShouldForceScrollToBottom(messages)
 
   const messageRenderer = useCallback(
-    (messageList, virtuosoIndex) => {
+    (messageList, virtuosoIndex) => {      
       const messageIndex = virtuosoIndex + numItemsPrepended - PREPEND_OFFSET
 
-      const message = messageList[messageIndex]      
-        
+      const message = messageList[messageIndex]
       const prevMessage =
         messageIndex > 0 ? messageList[messageIndex - 1] : null
 
@@ -65,7 +91,7 @@ export default function Messages({ channel, server, user, group, users, received
   const [readGroup] = useReadGroupMutation()
   const [readDm] = useReadDmMutation()
   const [currentUser] = useCurrentUser()
-
+    
   useEffect(() => {
     if (!currentUser) return
     if (!messages?.length) return
