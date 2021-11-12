@@ -1558,7 +1558,7 @@ export type PostFragment = (
 
 export type RelatedUserFragment = (
   { __typename?: 'User' }
-  & Pick<User, 'showChat' | 'unreadCount' | 'lastMessageAt'>
+  & Pick<User, 'showChat' | 'unreadCount'>
   & UserFragment
 );
 
@@ -3364,7 +3364,6 @@ export const RelatedUserFragmentDoc = gql`
   ...User
   showChat
   unreadCount
-  lastMessageAt
 }
     ${UserFragmentDoc}`;
 export const RoleFragmentDoc = gql`

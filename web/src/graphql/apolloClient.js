@@ -75,6 +75,9 @@ function merge(existing, incoming) {
 
 export const apolloClient = new ApolloClient({
   link: finalLink,
+  defaultOptions: {
+    fetchPolicy: 'no-cache'
+  },
   cache: new InMemoryCache({
     typePolicies: {
       User: {

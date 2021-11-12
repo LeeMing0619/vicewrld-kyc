@@ -127,7 +127,7 @@ export default function BottomBar() {
             </Tippy>
           )}
 
-          <Tippy content={isDark ? 'Light Mode' : 'Dark Mode'}>
+          {/* <Tippy content={isDark ? 'Light Mode' : 'Dark Mode'}>
             <button
               className="text-tertiary cursor-pointer"
               onClick={() => toggleDark()}
@@ -138,7 +138,7 @@ export default function BottomBar() {
                 <IconDark className="w-5 h-5" />
               )}
             </button>
-          </Tippy>
+          </Tippy> */}
 
           <Tippy
             content={`${
@@ -175,17 +175,17 @@ export default function BottomBar() {
             </div>
           </Tippy>
 
-          <Tippy content="Search" offset={offset}>
+          {/* <Tippy content="Search" offset={offset}>
             <div>
               <IconSearch className="w-4.5 h-4.5 cursor-pointer" />
             </div>
-          </Tippy>
+          </Tippy> */}
 
-          <Tippy content="Folders" offset={offset}>
+          {/* <Tippy content="Folders" offset={offset}>
             <div>
               <IconFolder className="w-4.5 h-4.5 cursor-pointer" />
             </div>
-          </Tippy>
+          </Tippy> */}
 
           {!!currentUser &&
             (width > 600 ? (

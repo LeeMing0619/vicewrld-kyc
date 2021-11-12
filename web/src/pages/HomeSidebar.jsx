@@ -135,6 +135,7 @@ export default function HomeSidebar() {
                       return <div>Group</div>
                     } else if (groupOrDm.__typename === 'User') {
                       const user = groupOrDm
+                      console.log('Homeside bar')
                       return (
                         <DirectMessage user={user} key={`user-${user.id}`} />
                       )
