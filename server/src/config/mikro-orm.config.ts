@@ -70,7 +70,7 @@ export const mikroOrmConf = {
   type: 'postgresql',
   clientUrl:
     process.env.DATABASE_URL ??
-    'postgresql://postgres:password@167.179.93.168:5432/postgres',
+    'postgresql://postgres:password@localhost:5432/postgres',
   debug: process.env.NODE_ENV !== 'production',
   forceUtcTimezone: true,
   findOneOrFailHandler: (entityName: string) => {
