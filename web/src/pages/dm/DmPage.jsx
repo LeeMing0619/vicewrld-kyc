@@ -11,7 +11,7 @@ export default function DmPage({ username }) {
   const { data: userData } = useUserQuery({
     variables: { username },
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: 'cache-first'
+    // nextFetchPolicy: 'cache-first'
   })
   const [openDm] = useOpenDmMutation()
   const user = userData?.user

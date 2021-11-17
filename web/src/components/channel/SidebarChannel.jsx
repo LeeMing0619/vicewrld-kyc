@@ -33,7 +33,7 @@ export default function SidebarChannel({ channel, server }) {
   const active = hash.substring(1) === channel.name
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [editOpen, setEditOpen] = useState(false)
-
+  
   return (
     <>
       <CreateChannelDialog

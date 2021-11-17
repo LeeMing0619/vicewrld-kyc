@@ -52,7 +52,7 @@ export default function BottomBar() {
             input: { onlineStatus: OnlineStatus.Online }
           }
         })
-      }, 15000)
+      }, 2000)
       return () => clearInterval(id)
     }
   }, [currentUser])
