@@ -35,7 +35,7 @@ export default function ServerList({ hide = false }) {
   const { data: publicServersData } = usePublicServersQuery({
     variables: { featured: true },
     fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: 'cache-first'
+    //nextFetchPolicy: 'cache-first'
   })
   const servers = currentUser
     ? currentUser.servers
@@ -47,6 +47,7 @@ export default function ServerList({ hide = false }) {
 
   return (
     <>
+    {console.log("------ServerQuery")}
       <div
         className={`${
           hide ? 'hidden md:flex' : 'flex'
@@ -125,7 +126,7 @@ function ServerListServer({ server }) {
       : 0
   const active = serverName === server.name
   const [deleteOpen, setDeleteOpen] = useState(false)
-
+console.log(mentionCount)
   return (
     <>
       <DeleteServerDialog

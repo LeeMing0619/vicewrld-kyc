@@ -41,7 +41,7 @@ export default function HomeSidebar() {
         (a.lastMessageAt ? new Date(a.lastMessageAt).getTime() : 0) -
         (b.lastMessageAt ? new Date(b.lastMessageAt).getTime() : 0)
     )
-  const { data } = useRepliesQuery({
+  const { data, loading, error } = useRepliesQuery({
     skip: !currentUser,
     fetchPolicy: 'cache-and-network'
   })
@@ -134,8 +134,7 @@ export default function HomeSidebar() {
                       const group = groupOrDm
                       return <div>Group</div>
                     } else if (groupOrDm.__typename === 'User') {
-                      const user = groupOrDm
-                      console.log('Homeside bar')
+                      const user = groupOrDm                      
                       return (
                         <DirectMessage user={user} key={`user-${user.id}`} />
                       )

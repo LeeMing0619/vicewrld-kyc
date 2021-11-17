@@ -41,8 +41,7 @@ export class MessagesResponse {
 export async function messages(
   { em, userId: currentUserId }: Context,
   { channelId, groupId, userId, pinned, limit, cursor }: MessagesArgs
-): Promise<MessagesResponse> {
-  logger('messages-----------------------------------------------------------123')
+): Promise<MessagesResponse> {  
   if (!channelId && !groupId && !userId)
     throw new Error('error.message.missingArgs')
 
