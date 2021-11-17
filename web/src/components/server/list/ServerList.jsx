@@ -47,7 +47,6 @@ export default function ServerList({ hide = false }) {
 
   return (
     <>
-    {console.log("------ServerQuery")}
       <div
         className={`${
           hide ? 'hidden md:flex' : 'flex'
@@ -126,7 +125,7 @@ function ServerListServer({ server }) {
       : 0
   const active = serverName === server.name
   const [deleteOpen, setDeleteOpen] = useState(false)
-console.log(mentionCount)
+
   return (
     <>
       <DeleteServerDialog

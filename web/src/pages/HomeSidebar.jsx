@@ -206,8 +206,8 @@ function DirectMessage({ user }) {
 
           <IconX
             onClick={e => {
-              // e.stopPropagation()
-              // e.preventDefault()
+              e.stopPropagation()
+              e.preventDefault()
               closeDm({ variables: { input: { userId: user.id } } })
               if (pathname === `/dm/@${user.username}`) push('/')
             }}
