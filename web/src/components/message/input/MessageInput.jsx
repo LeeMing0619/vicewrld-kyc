@@ -121,6 +121,7 @@ export default function MessageInput({ channel, server, group, user, users, rece
           render: () => {
             let reactRenderer
             let popup
+            let isSpacing
 
             return {
               onStart: props => {
@@ -177,6 +178,13 @@ export default function MessageInput({ channel, server, group, user, users, rece
                 })
               },
               onKeyDown(props) {
+                if (props?.event?.code === 'Space') {                  
+                  isSpacing = true                  
+                  return
+                } else {                  
+                  isSpacing = false
+                }
+
                 return reactRenderer.ref?.onKeyDown(props)
               },
               onExit() {
