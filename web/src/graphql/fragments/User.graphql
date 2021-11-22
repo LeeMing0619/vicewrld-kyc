@@ -1,0 +1,20 @@
+fragment User on User {
+  id
+  username
+  avatarUrl
+  bannerUrl
+  isOnline
+  onlineStatus
+  isCurrentUser
+  isPremium
+  isCreator
+  color
+  isOg
+  isStaff
+  relationshipStatus
+  showChat
+  bio
+  creatorApplicationId
+  twitter
+  instagram
+}
