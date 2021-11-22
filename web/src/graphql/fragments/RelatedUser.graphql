@@ -1,5 +1,0 @@
-fragment RelatedUser on User {
-  ...User
-  showChat
-  unreadCount
-}
