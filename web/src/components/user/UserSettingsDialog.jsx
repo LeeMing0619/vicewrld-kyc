@@ -261,7 +261,7 @@ function DeleteAccountDialog({ deleteOpen, setDeleteOpen }) {
   const [deleteAccount, { loading }] = useDeleteAccountMutation()
   const logout = () => {
     localStorage.removeItem('token')
-    location.reload()
+    location = '/'//location.reload()
   }
 
   return (

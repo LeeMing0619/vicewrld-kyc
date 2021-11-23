@@ -12,7 +12,7 @@ export const wsStatus = {
 }
 
 const wsUrl = import.meta.env.PROD
-  ? `wss://${import.meta.env.VITE_API_DOMAIN}/graphql`
+  ? `ws://${import.meta.env.VITE_API_DOMAIN}/graphql`
   : 'ws://localhost:4000/graphql'
 
 export class WebSocketLink extends ApolloLink {

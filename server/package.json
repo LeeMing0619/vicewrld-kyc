@@ -8,7 +8,7 @@
   "scripts": {
     "start-old": "cross-env NODE_ENV=production NODE_TLS_REJECT_UNAUTHORIZED=0 ts-node -r tsconfig-paths/register --transpile-only src/index.ts",
     "start": "node ./dist/",
-    "dev": "cross-env NODE_ENV=development ACCESS_TOKEN_SECRET=secret MEDIA_DOMAIN=https://vicewrld-bucket.s3.eu-west-2.amazonaws.com BUCKET=https://vicewrld-bucket.s3.eu-west-2.amazonaws.com ts-node-dev -r tsconfig-paths/register src/index.ts",
+    "dev": "HTTPS=true cross-env NODE_ENV=development ACCESS_TOKEN_SECRET=secret MEDIA_DOMAIN=https://vicewrld-bucket.s3.eu-west-2.amazonaws.com BUCKET=https://vicewrld-bucket.s3.eu-west-2.amazonaws.com ts-node-dev -r tsconfig-paths/register src/index.ts",
     "migrate": "cross-env NODE_ENV=production NODE_TLS_REJECT_UNAUTHORIZED=0 ts-node -r tsconfig-paths/register --transpile-only src/migrate.ts",
     "migrate-dev": "cross-env NODE_ENV=development ts-node -r tsconfig-paths/register --transpile-only src/migrate.ts",
     "migrate-and-restore": "cross-env NODE_ENV=development MIGRATE_INITIAL=true NODE_TLS_REJECT_UNAUTHORIZED=0 ts-node -r tsconfig-paths/register --transpile-only src/migrate.ts",

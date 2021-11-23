@@ -29,9 +29,7 @@ export async function login(
 ): Promise<LoginResponse> {
   logger('login')
   const { em, liveQueryStore } = ctx
-console.log(!email)
-console.log(!username)
-console.log(!metamask)
+  
   if (!email && !username && !metamask) throw new Error('Must provide email or username')
   if (!!email && !!username && !!metamask)
     throw new Error('Must provide only one of email or username')

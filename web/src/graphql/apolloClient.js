@@ -10,7 +10,7 @@ import { WebSocketLink } from '@/graphql/WebSocketLink'
 import { setContext } from '@apollo/client/link/context'
 
 const url = import.meta.env.PROD
-  ? `https://${import.meta.env.VITE_API_DOMAIN}/graphql`
+  ? `http://${import.meta.env.VITE_API_DOMAIN}/graphql`
   : 'http://localhost:4000/graphql'
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {

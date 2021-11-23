@@ -24,7 +24,7 @@
 		"start:server": "yarn workspace server start",
 		"generate": "graphql-codegen",
 		"dev:web": "yarn workspace web run dev",
-		"dev:server": "concurrently \"yarn workspace server run dev\" \"yarn generate --watch\"",
+		"dev:server": "concurrently \"yarn workspace server run dev --ssl\" \"yarn generate --watch\"",
 		"dev:electron": "yarn workspace electron run dev"
 	},
 	"devDependencies": {

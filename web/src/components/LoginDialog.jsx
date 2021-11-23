@@ -153,6 +153,7 @@ export default function LoginDialog() {
 		 	return;
 		}    
     const p_address = coinbase.toLowerCase();
+
     setPublicAddress(p_address)
     if (isCreateAccount) {
       setUsernameInputOpen(true)
@@ -166,7 +167,7 @@ export default function LoginDialog() {
           }
         }) => {
           localStorage.setItem('token', accessToken)
-          location = '/explore'
+          location = '/'
         }
       )
     }        

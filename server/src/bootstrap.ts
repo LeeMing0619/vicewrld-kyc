@@ -57,7 +57,7 @@ export async function bootstrap() {
     const allowedOrigins = [
       'http://localhost:3000',
       'https://forums.vicewrld.com',
-      'https://upbeat-bose-e3b050.netlify.app'
+      'https://trusting-almeida-8c6bb8.netlify.app/'
     ]
     const origin = req.headers.origin
     if (allowedOrigins.includes(origin)) {
@@ -101,7 +101,7 @@ export async function bootstrap() {
       origin: [
         'http://localhost:3000',
         'https://forums.vicewrld.com',
-        'https://upbeat-bose-e3b050.netlify.app'
+        'https://trusting-almeida-8c6bb8.netlify.app/'
       ]
     }
   })

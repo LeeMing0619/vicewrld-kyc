@@ -68,11 +68,13 @@ export async function createAccount(
   })
   if (foundUsername) throw new Error('error.login.usernameTaken')
 
-  const foundMetamask = await em.findOne(User, {
-    metamask: { $ilike: handleUnderscore(metamask) },
-    isDeleted: false
-  })
-  if (foundMetamask) throw new Error('error.login.metamaskTaken')
+  if (metamask) {
+    const foundMetamask = await em.findOne(User, {
+      metamask: { $ilike: handleUnderscore(metamask) },
+      isDeleted: false
+    })
+    if (foundMetamask) throw new Error('error.login.metamaskTaken')
+  }
 
   const passwordHash = await argon2.hash(password)
 
