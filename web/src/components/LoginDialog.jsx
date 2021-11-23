@@ -119,7 +119,7 @@ export default function LoginDialog() {
           }
         }) => {
           localStorage.setItem('token', accessToken)
-          location = '/explore'
+          location.href = '/'
         }
       )
     }
@@ -133,7 +133,7 @@ export default function LoginDialog() {
     if (!web3) {
 			try {
 				// Request account access if needed
-				// await window.ethereum.enable();
+				//await window.ethereum.enable();
         await window.ethereum.request({ method: 'eth_requestAccounts' })
 
 			// We don't know window.web3 version, so we use our own instance of Web3
@@ -153,11 +153,17 @@ export default function LoginDialog() {
 		 	return;
 		}    
     const p_address = coinbase.toLowerCase();
-
+    // console.log(p_address)
+    // if (!web3) {
+		// 	try {
+    //     await window.ethereum.disable();
+    //   }
+    //   catch (error) {
+    //   }
+    // }
     setPublicAddress(p_address)
     if (isCreateAccount) {
-      setUsernameInputOpen(true)
-      setIsShowButton(true)
+      
     } else {
       //SignIn with metamask
       login({ variables: { input: { metamask: p_address } } }).then(
@@ -167,9 +173,14 @@ export default function LoginDialog() {
           }
         }) => {
           localStorage.setItem('token', accessToken)
-          location = '/'
+          location.href = '/'
         }
-      )
+      ).catch((e) => {        
+        if (p_address) {
+          setUsernameInputOpen(true)
+          setIsShowButton(true)
+        }
+      })
     }        
   }
 
@@ -197,6 +208,30 @@ export default function LoginDialog() {
         }
       )
     }
+  }
+
+  const onSignUp = () => {
+    createAccount({
+      variables: {
+        input: {
+          username: usernameOrEmail,
+          password,
+          email: email ? email : null,
+          metamask: publicAddress
+        }
+      }
+    }).then(
+      ({
+        data: {
+          createAccount: { accessToken, user }
+        }
+      }) => {
+        localStorage.setItem('token', accessToken)
+        setAvatarSelectorOpen(true)
+        setIsShowButton(true)
+        setUsernameInputOpen(false)
+      }
+    )
   }
   const close = () => {
     reset()
@@ -259,6 +294,7 @@ export default function LoginDialog() {
           )}
         </button>
       }
+      createAccount={isCreateAccount}
       metamaskButtonClick={onClick_metamask}
     >
       {userNameInputOpen ? (
@@ -269,7 +305,7 @@ export default function LoginDialog() {
                 <VectorLogo noFlex />
               </LogoHolder>
             )}
-            <div className="px-5 pt-2 pb-9 text-left">
+            <div className="px-5 pt-2 pb-4 text-left">
               <div className="space-y-4">
                 <div>
                   <div className="relative">
@@ -296,6 +332,17 @@ export default function LoginDialog() {
                     showPassword={showPassword}
                     setShowPassword={setShowPassword}
                   />
+                </div>
+                <div className="relative">
+                  <div className="right-5 left-5 bottom-4 transform flex items-center space-x-3 justify-center h-9">
+                    <button
+                      type="button"
+                      className={`form-button-submit`}
+                      onClick={onSignUp}
+                    >
+                      <IconUserToServerArrow className="w-5 h-5" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

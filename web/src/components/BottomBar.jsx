@@ -21,6 +21,7 @@ import { useLoginDialog } from '@/hooks/useLoginDialog'
 import { getOS } from '@/utils/getOS'
 import { useDarkMode } from '@/hooks/useDarkMode'
 import { useWindowSize } from './ViceHeader/hooks/useWindowSize'
+import Web3 from 'web3/dist/web3.min.js'
 
 export default function BottomBar() {
   const [currentUser] = useCurrentUser()
@@ -32,6 +33,19 @@ export default function BottomBar() {
   ])
 
   const { width } = useWindowSize()
+  
+  let web3 = undefined;
+  web3 = new Web3(window.ethereum);
+  web3.eth.getAccounts(function (err, accounts) { 
+    //console.log(accounts[0]) 
+    if (currentUser?.metamask)
+      if (!accounts[0]) {
+        localStorage.removeItem('token')        
+        location.href = '/'
+      }
+  })
+
+  if (currentUser?.metamask)
 
   useEffect(() => {
     if (window.electron) {

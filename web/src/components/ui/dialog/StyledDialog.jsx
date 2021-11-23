@@ -13,7 +13,8 @@ export default function StyledDialog({
   large = false,
   noOpacity = false,
   show,
-  metamaskButtonClick
+  metamaskButtonClick,
+  createAccount
 }) {
   return (
     <Dialog
@@ -33,7 +34,19 @@ export default function StyledDialog({
         {!!buttons && (
           <>
             {!show && <div className="md:rounded-b-lg h-9" />}
-            {!show && <div className="absolute right-5 left-5 bottom-24 transform flex items-center space-x-3 justify-center h-9">
+            {!show && !createAccount && <div className="absolute right-5 left-5 bottom-24 transform flex items-center space-x-3 justify-center h-9">
+              {(buttons.type === Fragment
+                ? buttons.props.children
+                : [buttons]
+              ).map((button, index) => (
+                !show && 
+                <div key={index} className="dark:bg-gray-800 rounded">
+                  {button}
+                </div>
+              ))}
+            </div>  
+            }      
+            {!show && createAccount && <div className="absolute right-5 left-5 bottom-4 transform flex items-center space-x-3 justify-center h-9">
               {(buttons.type === Fragment
                 ? buttons.props.children
                 : [buttons]
@@ -47,8 +60,8 @@ export default function StyledDialog({
             }          
           </>
         )}
-        {!show && <hr className="mt-9 mb-6" style={{border: '0', height: '1px', backgroundImage: 'linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255,255, 0.75), rgba(255, 255, 255, 0))'}}></hr>}
-        {!!metamaskButtons && (
+        {!show && !createAccount && <hr className="mt-9 mb-6" style={{border: '0', height: '1px', backgroundImage: 'linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255,255, 0.75), rgba(255, 255, 255, 0))'}}></hr>}
+        {!!metamaskButtons && !createAccount && (
           <div>
           {(metamaskButtons.type === Fragment
             ? metamaskButtons.props.children

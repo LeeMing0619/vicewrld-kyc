@@ -55,7 +55,8 @@ export default function UserSettingsDialog({ open, setOpen }) {
 
   const logout = () => {
     localStorage.removeItem('token')
-    location.reload()
+    //location.reload()
+    location.href = '/'
   }
   const close = () => {
     setOpen(false)
@@ -261,7 +262,7 @@ function DeleteAccountDialog({ deleteOpen, setDeleteOpen }) {
   const [deleteAccount, { loading }] = useDeleteAccountMutation()
   const logout = () => {
     localStorage.removeItem('token')
-    location = '/'//location.reload()
+    location.href = '/'//location.reload()
   }
 
   return (

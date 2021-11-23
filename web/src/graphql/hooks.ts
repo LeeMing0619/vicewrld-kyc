@@ -3213,6 +3213,7 @@ export const UserFragmentDoc = gql`
   creatorApplicationId
   twitter
   instagram
+  metamask
 }
     `;
 export const GroupFragmentDoc = gql`
