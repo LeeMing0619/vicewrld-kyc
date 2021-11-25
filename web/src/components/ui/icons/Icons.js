@@ -84,7 +84,9 @@ export {
   HiPuzzle as IconCategoryHobbies,
   HiQuestionMarkCircle as IconCategoryOther,
   HiSpeakerphone as IconCategoryMeta,
-  HiUserGroup as IconCategoryCulture
+  HiUserGroup as IconCategoryCulture,
+  //Key
+  HiKey as IconKey
 } from 'react-icons/hi'
 
 export {

@@ -7,7 +7,8 @@ import {
   IconLight,
   IconSettings,
   IconSearch,
-  IconFolder
+  IconFolder,
+  IconKey
 } from '@/components/ui/icons/Icons'
 import Tippy from '@tippyjs/react'
 import { useEffect, useState } from 'react'
@@ -27,6 +28,10 @@ export default function BottomBar() {
   const [currentUser] = useCurrentUser()
   const offset = [0, 14]
   const [open, setOpen] = useState(false)
+  const [walletId, setWalletID] = useState('')  
+  const [networkType, setNetworkType] = useState('')  
+  const [balance, setBalance] = useState('')
+
   const [updateAvailable, setUpdateAvailable] = useStore(s => [
     s.updateAvailable,
     s.setUpdateAvailable
@@ -45,7 +50,14 @@ export default function BottomBar() {
       }
   })
 
-  if (currentUser?.metamask)
+    if (currentUser?.metamask) {
+      web3.eth.net.getNetworkType(function (err, type){
+        setNetworkType(type)
+      });
+      web3.eth.getBalance(currentUser?.metamask).then(val => setBalance(val));
+      //web3.eth.net.getId().then(val => console.log(val));
+      web3.eth.net.getId().then(val => setWalletID(val))
+    }
 
   useEffect(() => {
     if (window.electron) {
@@ -101,7 +113,7 @@ export default function BottomBar() {
             <div className="text-primary text-13 font-medium cursor-pointer">
               {currentUser.username}
             </div>
-            <div className="w-2 h-2 rounded-full bg-green-500 ml-2" />
+            <div className="w-2 h-2 rounded-full bg-green-500 ml-2" />            
           </>
         ) : (
           <div className="flex items-center text-primary text-13 font-medium">
@@ -127,6 +139,23 @@ export default function BottomBar() {
           </div>
         )}
 
+        {currentUser?.metamask && 
+          <div className="ml-auto flex items-center text-tertiary text-13 font-medium">
+            <div className=".text-tertiary text-13 font-medium cursor-pointer ml-10">
+              ID: {walletId}
+            </div>
+            <div className=".text-tertiary text-13 font-medium cursor-pointer ml-10">
+              NetworkType: {networkType}
+            </div>
+            <div className=".text-tertiary text-13 font-medium cursor-pointer ml-10">
+              Address: {currentUser?.metamask}
+            </div>
+            <div className=".text-tertiary text-13 font-medium cursor-pointer ml-10">
+              Balance: {balance}
+            </div>
+            {/* <IconKey className="w-4.5 h-4.5 text-tertiary cursor-pointer ml-10" onClick={closeMetaMask} /> */}
+          </div>
+        }
         <div className="ml-auto flex items-center space-x-4 text-primary">
           {os === 'Windows' && !window.electron && (
             <Tippy content="Download Comet for Desktop">

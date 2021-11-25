@@ -34,7 +34,19 @@ export default function StyledDialog({
         {!!buttons && (
           <>
             {!show && <div className="md:rounded-b-lg h-9" />}
-            {!show && !createAccount && <div className="absolute right-5 left-5 bottom-24 transform flex items-center space-x-3 justify-center h-9">
+            {!show && createAccount === undefined && <div className="absolute right-5 left-5 bottom-10 transform flex items-center space-x-3 justify-center h-9">
+              {(buttons.type === Fragment
+                ? buttons.props.children
+                : [buttons]
+              ).map((button, index) => (
+                !show && 
+                <div key={index} className="dark:bg-gray-800 rounded">
+                  {button}
+                </div>
+              ))}
+            </div>  
+            }  
+            {!show && createAccount === false && <div className="absolute right-5 left-5 bottom-24 transform flex items-center space-x-3 justify-center h-9">
               {(buttons.type === Fragment
                 ? buttons.props.children
                 : [buttons]

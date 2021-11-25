@@ -17,7 +17,7 @@ import ShowPasswordButton from '@/components/ui/ShowPasswordButton'
 import AvatarSelector from './user/AvatarSelector'
 import { useWindowSize } from '@/components/ViceHeader/hooks/useWindowSize'
 import styled from 'styled-components'
-
+import LoadingScreen from '@/pages/LoadingScreen'
 import Web3 from 'web3/dist/web3.min.js'
 
 import { useChangeUserAvatarWithUrlMutation } from '@/graphql/hooks'
@@ -37,7 +37,7 @@ let web3 = undefined;
 
 export default function LoginDialog() {
   const { width } = useWindowSize()
-  const [currentUser] = useCurrentUser()
+  const [currentUser, loading] = useCurrentUser()
   const [open, setOpen, isCreateAccount, setCreateAccount] = useLoginDialog()
   const [disabled, setDisabled] = useState(true)
   const [showPassword, setShowPassword] = useState(false)
@@ -81,11 +81,6 @@ export default function LoginDialog() {
     location.reload()
   }
   const [changeAvatarWithUrl] = useChangeUserAvatarWithUrlMutation()
-
-  useEffect(() => {
-    if (!currentUser && !open) setOpen(true)
-    if (currentUser && open) setOpen(false)
-  }, [currentUser])
 
   const onSubmit = ({ usernameOrEmail, email, username, password }) => {
     if (isCreateAccount) {
@@ -147,7 +142,7 @@ export default function LoginDialog() {
 		}
 
 		const coinbase = await web3.eth.getCoinbase();
-    
+        
 		if (!coinbase) {
 		  window.alert('Please activate MetaMask first.');
 		 	return;
@@ -171,9 +166,9 @@ export default function LoginDialog() {
           data: {
             login: { accessToken, user }
           }
-        }) => {
+        }) => {         
+          location.href = '/' 
           localStorage.setItem('token', accessToken)
-          location.href = '/'
         }
       ).catch((e) => {        
         if (p_address) {
@@ -259,7 +254,22 @@ export default function LoginDialog() {
     usernameOrEmail
   ])
 
-  return (
+  useEffect(() => {
+    if (!currentUser && !open && !loading) {
+      setOpen(true)
+      return       
+    }
+    if (currentUser && open) {
+      setOpen(false)
+      return      
+    }
+  }, [currentUser])
+
+  return loading ? 
+  (<>
+    <LoadingScreen />
+  </>)
+    :(
     <StyledDialog
       close={close}
       open={open}

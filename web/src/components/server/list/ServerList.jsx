@@ -90,7 +90,7 @@ export default function ServerList({ hide = false }) {
               />
             </ServerListItem>
 
-            {!!currentUser && canCreate && <CreateServerButton />}
+            {/* {!!currentUser && canCreate && <CreateServerButton />} */}
           </div>
 
           {!!servers && servers.length > 0 && (
@@ -100,6 +100,9 @@ export default function ServerList({ hide = false }) {
               ))}
             </div>
           )}
+          <div className="space-y-2 flex flex-col items-center py-2">
+            {!!currentUser && canCreate && <CreateServerButton />}
+          </div>
         </div>
       </div>
     </>
