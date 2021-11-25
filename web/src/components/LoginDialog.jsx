@@ -142,7 +142,7 @@ export default function LoginDialog() {
 		}
 
 		const coinbase = await web3.eth.getCoinbase();
-        
+    
 		if (!coinbase) {
 		  window.alert('Please activate MetaMask first.');
 		 	return;
@@ -157,6 +157,7 @@ export default function LoginDialog() {
     //   }
     // }
     setPublicAddress(p_address)
+    
     if (isCreateAccount) {
       
     } else {

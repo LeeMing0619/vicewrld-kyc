@@ -8,7 +8,8 @@ import {
   IconSettings,
   IconSearch,
   IconFolder,
-  IconKey
+  IconKey,
+  IconLogout
 } from '@/components/ui/icons/Icons'
 import Tippy from '@tippyjs/react'
 import { useEffect, useState } from 'react'
@@ -50,14 +51,29 @@ export default function BottomBar() {
       }
   })
 
-    if (currentUser?.metamask) {
-      web3.eth.net.getNetworkType(function (err, type){
-        setNetworkType(type)
-      });
-      web3.eth.getBalance(currentUser?.metamask).then(val => setBalance(val));
-      //web3.eth.net.getId().then(val => console.log(val));
-      web3.eth.net.getId().then(val => setWalletID(val))
-    }
+  if (currentUser?.metamask) {
+    web3.eth.net.getNetworkType(function (err, type){
+      switch (type) {
+        case 'main': 
+          setNetworkType('Mainnet')
+          break;
+        case 'morden': 
+          setNetworkType('Morden')
+          break;
+        case 'ropsten': 
+          setNetworkType('Ropsten')
+          break;
+        case 'private': 
+          setNetworkType('Private')
+          break;
+        default:
+          setNetworkType('Private')        
+      }
+    });
+    web3.eth.getBalance(currentUser?.metamask).then(val => setBalance(val));
+    //web3.eth.net.getId().then(val => console.log(val));
+    web3.eth.net.getId().then(val => setWalletID(val))
+  }
 
   useEffect(() => {
     if (window.electron) {
@@ -90,6 +106,12 @@ export default function BottomBar() {
   const [loginOpen, setLoginOpen, isCreateAccount, setCreateAccount] =
     useLoginDialog()
 
+  const logout = () => {
+    localStorage.removeItem('token')
+    //location.reload()
+    location.href = '/'
+  }
+  
   const SettingsWrapper = ({ children }) => (
     <Tippy content="Settings" offset={offset}>
       {children}
@@ -140,15 +162,12 @@ export default function BottomBar() {
         )}
 
         {currentUser?.metamask && 
-          <div className="ml-auto flex items-center text-tertiary text-13 font-medium">
-            <div className=".text-tertiary text-13 font-medium cursor-pointer ml-10">
-              ID: {walletId}
-            </div>
+          <div className="ml-auto flex items-center text-tertiary text-13 font-medium">            
             <div className=".text-tertiary text-13 font-medium cursor-pointer ml-10">
               NetworkType: {networkType}
             </div>
             <div className=".text-tertiary text-13 font-medium cursor-pointer ml-10">
-              Address: {currentUser?.metamask}
+              Wallet Id: {currentUser?.metamask}
             </div>
             <div className=".text-tertiary text-13 font-medium cursor-pointer ml-10">
               Balance: {balance}
@@ -241,6 +260,7 @@ export default function BottomBar() {
                 <SettingsWrapper>
                   <SettingsInner />
                 </SettingsWrapper>
+                <IconLogout className="w-4.5 h-4.5 text-green-500 cursor-pointer" onClick={() => logout()}/>
               </>
             ) : (
               <>
