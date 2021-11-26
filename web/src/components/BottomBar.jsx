@@ -50,7 +50,7 @@ export default function BottomBar() {
         location.href = '/'
       }
   })
-
+  console.log(currentUser)
   if (currentUser?.metamask) {
     web3.eth.net.getNetworkType(function (err, type){
       switch (type) {
@@ -71,8 +71,29 @@ export default function BottomBar() {
       }
     });
     web3.eth.getBalance(currentUser?.metamask).then(val => setBalance(val));
+    
     //web3.eth.net.getId().then(val => console.log(val));
-    web3.eth.net.getId().then(val => setWalletID(val))
+    web3.eth.net.getId().then(val => {
+      switch (val) {
+        case 1:           
+        case 4: 
+        case 97: 
+        case 137:
+        case 80001: 
+        case 43114: 
+        case 43113: 
+          localStorage.removeItem('token')        
+          location.href = '/'
+          break;
+        case 56: 
+          setWalletID('BSC Mainnet')
+          break;
+        
+        default:
+          localStorage.removeItem('token')        
+          location.href = '/'
+      }
+    })
   }
 
   useEffect(() => {
@@ -164,8 +185,11 @@ export default function BottomBar() {
         {currentUser?.metamask && 
           <div className="ml-auto flex items-center text-tertiary text-13 font-medium">            
             <div className=".text-tertiary text-13 font-medium cursor-pointer ml-10">
-              NetworkType: {networkType}
+              Network: {walletId}
             </div>
+            {/* <div className=".text-tertiary text-13 font-medium cursor-pointer ml-10">
+              NetworkType: {networkType}
+            </div> */}
             <div className=".text-tertiary text-13 font-medium cursor-pointer ml-10">
               Wallet Id: {currentUser?.metamask}
             </div>

@@ -141,43 +141,50 @@ export default function LoginDialog() {
 		 	}
 		}
 
-		const coinbase = await web3.eth.getCoinbase();
-    
-		if (!coinbase) {
-		  window.alert('Please activate MetaMask first.');
-		 	return;
-		}    
-    const p_address = coinbase.toLowerCase();
-    // console.log(p_address)
-    // if (!web3) {
-		// 	try {
-    //     await window.ethereum.disable();
-    //   }
-    //   catch (error) {
-    //   }
-    // }
-    setPublicAddress(p_address)
-    
-    if (isCreateAccount) {
-      
-    } else {
-      //SignIn with metamask
-      login({ variables: { input: { metamask: p_address } } }).then(
-        ({
-          data: {
-            login: { accessToken, user }
-          }
-        }) => {         
-          location.href = '/' 
-          localStorage.setItem('token', accessToken)
-        }
-      ).catch((e) => {        
-        if (p_address) {
-          setUsernameInputOpen(true)
-          setIsShowButton(true)
-        }
-      })
-    }        
+    const coinbase = await web3.eth.getCoinbase();
+
+    web3.eth.net.getId().then(val => {
+      if (val !== 56) {
+        window.alert('Please activate BSC Mainnet first.');
+        return;
+      } else {
+        if (!coinbase) {
+          window.alert('Please activate MetaMask first.');
+          return;
+        }    
+        const p_address = coinbase.toLowerCase();
+        // console.log(p_address)
+        // if (!web3) {
+        // 	try {
+        //     await window.ethereum.disable();
+        //   }
+        //   catch (error) {
+        //   }
+        // }
+        setPublicAddress(p_address)
+        
+        if (isCreateAccount) {
+          
+        } else {
+          //SignIn with metamask
+          login({ variables: { input: { metamask: p_address } } }).then(
+            ({
+              data: {
+                login: { accessToken, user }
+              }
+            }) => {         
+              location.href = '/' 
+              localStorage.setItem('token', accessToken)
+            }
+          ).catch((e) => {        
+            if (p_address) {
+              setUsernameInputOpen(true)
+              setIsShowButton(true)
+            }
+          })
+        } 
+      }
+    });
   }
 
   const onCaptureKey = (e) => {
