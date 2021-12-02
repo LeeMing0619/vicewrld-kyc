@@ -61,7 +61,7 @@ const index = ({ setCanProceed, setNextAction }) => {
   const getApplicationStatus = async () => {
     fetch(
       isDev
-        ? `http://localhost:5000/getApplicationStatus/${applicationId}`
+        ? `http://138.68.184.93:5000/getApplicationStatus/${applicationId}`
         : 'productionURLHere',
       {
         method: 'GET'
@@ -101,7 +101,7 @@ const index = ({ setCanProceed, setNextAction }) => {
     if (applicationId) {
       getApplicationStatus()
     } else {
-      fetch(isDev ? 'http://localhost:5000/getKycToken' : 'productionURLHere', {
+      fetch(isDev ? 'http://138.68.184.93:5000/getKycToken' : 'productionURLHere', {
         method: 'GET'
       })
         .then(res => res.json())

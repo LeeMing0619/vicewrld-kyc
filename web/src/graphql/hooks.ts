@@ -1626,7 +1626,7 @@ export type ServerUserFragment = (
 
 export type UserFragment = (
   { __typename?: 'User' }
-  & Pick<User, 'id' | 'username' | 'avatarUrl' | 'bannerUrl' | 'isOnline' | 'onlineStatus' | 'isCurrentUser' | 'isPremium' | 'isCreator' | 'color' | 'isOg' | 'isStaff' | 'relationshipStatus' | 'showChat' | 'bio' | 'creatorApplicationId' | 'twitter' | 'instagram'>
+  & Pick<User, 'id' | 'username' | 'avatarUrl' | 'bannerUrl' | 'isOnline' | 'onlineStatus' | 'isCurrentUser' | 'isPremium' | 'isCreator' | 'color' | 'isOg' | 'isStaff' | 'relationshipStatus' | 'showChat' | 'bio' | 'creatorApplicationId' | 'twitter' | 'instagram' | 'metamask'>
 );
 
 export type CreateChannelMutationVariables = Exact<{

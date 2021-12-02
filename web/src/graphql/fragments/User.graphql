@@ -17,4 +17,5 @@ fragment User on User {
   creatorApplicationId
   twitter
   instagram
+  metamask
 }

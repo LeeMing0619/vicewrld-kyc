@@ -119,6 +119,10 @@ export default function LoginDialog() {
       )
     }
   }
+
+  const func_open = async () => {
+    await window.ethereum.enable();
+  }
   const onClick_metamask = async () => {    
     if (!window.ethereum) {
 		  window.alert('Please install MetaMask first.');
@@ -145,7 +149,31 @@ export default function LoginDialog() {
 
     web3.eth.net.getId().then(val => {
       if (val !== 56) {
-        window.alert('Please activate BSC Mainnet first.');
+        if (window.ethereum) {
+          window.alert('Please change Network to BSC Mainnet')
+          try {
+            window.ethereum.request({
+              method: 'wallet_switchEthereumChain',
+              params: [{chainId: '0x38'}]
+            })
+            .then(() => web3 = new Web3(window.ethereum))
+            .catch(err => {
+              console.log(err.code)
+              if (err.code === 4902) {
+                try {console.log(err.code)
+                  window.ethereum.request({
+                    method: 'wallet_addEthereumChain',
+                    params: [{ chainId: '0x38', rpcUrl: ' https://bsc-dataseed.binance.org/', chainName:'BNB' /* ... */ }],
+                  });
+                } catch (addError) {
+                  // handle "add" error
+                }
+              }
+            })
+          } catch (switchError) { 
+            console.log(switchError)            
+          }         
+        }
         return;
       } else {
         if (!coinbase) {

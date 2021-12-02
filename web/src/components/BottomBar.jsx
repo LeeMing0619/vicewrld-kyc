@@ -43,14 +43,14 @@ export default function BottomBar() {
   let web3 = undefined;
   web3 = new Web3(window.ethereum);
   web3.eth.getAccounts(function (err, accounts) { 
-    //console.log(accounts[0]) 
+    // console.log(accounts[0]) 
     if (currentUser?.metamask)
       if (!accounts[0]) {
         localStorage.removeItem('token')        
         location.href = '/'
       }
   })
-  console.log(currentUser)
+  
   if (currentUser?.metamask) {
     web3.eth.net.getNetworkType(function (err, type){
       switch (type) {
@@ -70,7 +70,31 @@ export default function BottomBar() {
           setNetworkType('Private')        
       }
     });
-    web3.eth.getBalance(currentUser?.metamask).then(val => setBalance(val));
+    let viceABI = [
+     // balanceOf
+      {
+        "constant":true,
+        "inputs":[{"name":"_owner","type":"address"}],
+        "name":"balanceOf",
+        "outputs":[{"name":"balance","type":"uint256"}],
+        "type":"function"
+      },
+      // decimals
+      {
+        "constant":true,
+        "inputs":[],
+        "name":"decimals",
+        "outputs":[{"name":"","type":"uint8"}],
+        "type":"function"
+      }
+    ]
+    const tokenInst = new web3.eth.Contract(viceABI, "0xeea06FC74182B195f679f31d735D95EE502f03F3");
+    const balance1 = tokenInst.methods.balanceOf(currentUser?.metamask).call().then(val => {
+      var balance = web3.utils.fromWei(val, 'ether')
+      setBalance(parseFloat(balance).toFixed(3))
+    });
+    
+    //web3.eth.getBalance(currentUser?.metamask).then(val => setBalance(val));
     
     //web3.eth.net.getId().then(val => console.log(val));
     web3.eth.net.getId().then(val => {

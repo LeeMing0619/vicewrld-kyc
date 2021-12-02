@@ -12,7 +12,7 @@ import { createClient } from 'graphql-ws'
 
 const wsClient = headers =>
   createClient({
-    url: 'ws://localhost:4000/graphql',
+    url: 'ws://138.68.184.93:4000/graphql',
     lazy: false,
     connectionParams: () => (headers.token ? { token: headers.token } : {})
   })
@@ -35,7 +35,7 @@ const fetcher = async (graphQLParams, { headers }) => {
     return wsFetcher(headers, graphQLParams)
   }
 
-  const patches = await fetch('http://localhost:4000/graphql', {
+  const patches = await fetch('http://138.68.184.93:4000/graphql', {
     method: 'POST',
     body: JSON.stringify(graphQLParams),
     headers: {
