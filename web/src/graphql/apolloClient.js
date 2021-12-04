@@ -11,7 +11,7 @@ import { setContext } from '@apollo/client/link/context'
 
 const url = import.meta.env.PROD
   ? `http://${import.meta.env.VITE_API_DOMAIN}/graphql`
-  : 'http://138.68.184.93:4000/graphql'
+  : 'http://localhost:4000/graphql'
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
